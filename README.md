@@ -2,7 +2,7 @@
 
 Install development tools locally to your project using docker containers
 
-[![asciicast](https://asciinema.org/a/bv6xscj0n89beqq3ncwch24u9.png)](https://asciinema.org/a/bv6xscj0n89beqq3ncwch24u9)
+[![asciicast](https://asciinema.org/a/f056w0w93x0b2tpgppkzegw50.png)](https://asciinema.org/a/f056w0w93x0b2tpgppkzegw50)
 
 
 ## Installation
@@ -22,7 +22,7 @@ Add a file called `dpm.yml` to your project root defining the commands you want 
 commands:
   go:
     image: golang:1.7.5
-    context: /go/src/github.com/docker/pipeline
+    context: /go/src/github.com/fermayo/dpm
 
   glide:
     image: dockerepo/glide

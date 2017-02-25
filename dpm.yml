@@ -1,7 +1,7 @@
 commands:
   go:
     image: golang:1.7.5
-    context: /go/src/github.com/docker/pipeline
+    context: /go/src/github.com/fermayo/dpm
 
   glide:
     image: dockerepo/glide
