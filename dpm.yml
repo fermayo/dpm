@@ -1,0 +1,7 @@
+commands:
+  go:
+    image: golang:1.7.5
+    context: /go/src/github.com/docker/pipeline
+
+  glide:
+    image: dockerepo/glide
