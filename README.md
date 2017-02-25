@@ -9,7 +9,7 @@ Install development tools locally to your project using docker containers
 
 Install Docker. Then:
 
-    curl -L "https://github.com/fermayo/dpm/releases/download/0.1/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
+    curl -L "https://github.com/fermayo/dpm/releases/download/0.1.0/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
 
 
 ## Usage
