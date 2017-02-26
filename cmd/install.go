@@ -47,7 +47,7 @@ var installCmd = &cobra.Command{
 		for name, command := range commands {
 			commandNames = append(commandNames, name)
 			targetPath := path.Join(project.ProjectCmdPath, name)
-			contents := fmt.Sprintf("#!/bin/sh\n%s", commandToDockerCLI(command))
+			contents := fmt.Sprintf("#!/bin/sh\nexec %s", commandToDockerCLI(command))
 			err = ioutil.WriteFile(targetPath, []byte(contents), 0755)
 			if err != nil {
 				log.Fatalf("error: %v", err)
@@ -67,11 +67,6 @@ var installCmd = &cobra.Command{
 }
 
 func commandToDockerCLI(command parser.Command) string {
-	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatalf("error: %v", err)
-	}
-
-	return fmt.Sprintf("docker run -it --rm -v %s -w %s --entrypoint %s %s \"$@\"",
-		fmt.Sprintf("%s:%s", dir, command.Context), command.Context, command.Entrypoint, command.Image)
+	return fmt.Sprintf("docker run -it --rm -v $(pwd):%s -w %s --entrypoint %s %s \"$@\"",
+		command.Context, command.Context, command.Entrypoint, command.Image)
 }
