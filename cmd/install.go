@@ -3,11 +3,14 @@ package cmd
 import (
 	"fmt"
 	"github.com/fermayo/dpm/parser"
+	"github.com/fermayo/dpm/project"
+	"github.com/fermayo/dpm/switcher"
 	"github.com/spf13/cobra"
 	"io/ioutil"
 	"log"
 	"os"
 	"path"
+	"strings"
 )
 
 func init() {
@@ -18,28 +21,47 @@ var installCmd = &cobra.Command{
 	Use:   "install",
 	Short: "Installs all commands defined in dpm.yml in the current project",
 	Run: func(cmd *cobra.Command, args []string) {
-		commands := parser.GetCommands()
-		dir, err := os.Getwd()
+		if !project.IsProjectInitialized() {
+			log.Fatal("error: no `dpm.yml` file found\n")
+		}
+
+		commands := parser.GetCommands(project.ProjectFilePath)
+		os.RemoveAll(project.ProjectCmdPath)
+		err := os.MkdirAll(project.ProjectCmdPath, 0755)
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
 
-		cmdDir := path.Join(dir, ".dpm")
-
-		os.RemoveAll(cmdDir)
-		err = os.MkdirAll(cmdDir, 0755)
+		data, err := ioutil.ReadFile(project.ProjectFilePath)
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
+		err = ioutil.WriteFile(path.Join(project.ProjectCmdPath, "dpm.yml"), data, 0644)
+		if err != nil {
+			log.Fatalf("error: %v", err)
+		}
+
+		fmt.Printf("Installing %d commands...\n", len(commands))
+		commandNames := []string{}
 
 		for name, command := range commands {
-			fmt.Printf("Installing %s...\n", name)
-			targetPath := path.Join(cmdDir, name)
+			commandNames = append(commandNames, name)
+			targetPath := path.Join(project.ProjectCmdPath, name)
 			contents := fmt.Sprintf("#!/bin/sh\n%s", commandToDockerCLI(command))
 			err = ioutil.WriteFile(targetPath, []byte(contents), 0755)
 			if err != nil {
 				log.Fatalf("error: %v", err)
 			}
+		}
+
+		fmt.Printf("Installed: %s\n", strings.Join(commandNames, ", "))
+
+		switchProjectName, err := switcher.GetSwitchProjectName()
+		if err != nil {
+			log.Fatalf("error: %v", err)
+		}
+		if switchProjectName == "" {
+			fmt.Print("Now you can run `dpm activate` to start using your new commands\n")
 		}
 	},
 }
@@ -50,5 +72,6 @@ func commandToDockerCLI(command parser.Command) string {
 		log.Fatalf("error: %v", err)
 	}
 
-	return fmt.Sprintf("docker run -it --rm -v %s -w %s --entrypoint %s %s \"$@\"", fmt.Sprintf("%s:%s", dir, command.Context), command.Context, command.Entrypoint, command.Image)
+	return fmt.Sprintf("docker run -it --rm -v %s -w %s --entrypoint %s %s \"$@\"",
+		fmt.Sprintf("%s:%s", dir, command.Context), command.Context, command.Entrypoint, command.Image)
 }

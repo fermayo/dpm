@@ -9,7 +9,15 @@ Install development tools locally to your project using docker containers
 
 Install Docker. Then:
 
-    curl -L "https://github.com/fermayo/dpm/releases/download/0.1.0/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
+    curl -L "https://github.com/fermayo/dpm/releases/download/0.2.0/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
+
+And add `~/.dpm` to your shell path. For example, for `bash`:
+
+    echo "export PATH=$PATH:$HOME/.dpm" >> ~/.bashrc
+
+If you want project commands defined with `dpm` to override system commands (if you trust your projects!), use the following instead:
+
+    echo "export PATH=$HOME/.dpm:$PATH" >> ~/.bashrc
 
 
 ## Usage
@@ -47,14 +55,14 @@ Execute:
     
 and it will create all command aliases in `.dpm/`. Run it every time you update `dpm.yml`.
 
-Add this to your `$PATH` so the commands are available from the root of your project:
 
-    export PATH=$PATH:./.dpm
+### Using project commands
 
+From the project root, run the following to enable its installed commands:
 
-### Using commands
+    dpm activate
 
-Once commands are installed, just use them as if they were installed in your OS, from the project root:
+Then, just execute them as if they were installed in your OS:
 
     $ go version
     go version go1.7.5 linux/amd64
@@ -66,6 +74,6 @@ You can also list which commands are available by running:
 
 ### Uninstalling commands
 
-Just run
+To remove all commands from the current project, just run:
 
     dpm uninstall

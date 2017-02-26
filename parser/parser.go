@@ -6,9 +6,7 @@ import (
 	"log"
 )
 
-var filename = "dpm.yml"
-
-func GetCommands() map[string]Command {
+func GetCommands(filename string) map[string]Command {
 	fileBytes, err := ioutil.ReadFile(filename)
 	if err != nil {
 		log.Fatalf("error: %v", err)
@@ -22,7 +20,7 @@ func GetCommands() map[string]Command {
 
 	commands, ok := inputfile["commands"]
 	if !ok {
-		log.Fatal("no commands found in input file")
+		log.Fatal("error: no commands found in input file")
 	}
 
 	for name, command := range commands {

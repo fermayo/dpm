@@ -1,10 +1,12 @@
 hash: 9a1fe00cbd0f425e4a44cc82ec9ea652e4ebca6e338c8826f5a6d8dcf622fa8d
-updated: 2017-02-25T20:31:59.428704555Z
+updated: 2017-02-25T23:57:41.537699241Z
 imports:
 - name: github.com/go-yaml/yaml
   version: a3f3340b5840cee44f372bddb5880fcbc419b46a
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/mitchellh/go-homedir
+  version: b8bc1bf767474819792c23f32d8286a45736f1c6
 - name: github.com/spf13/cobra
   version: 92ea23a837e66f46ac9e7d04fa826602b7b0a42d
 - name: github.com/spf13/pflag
