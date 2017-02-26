@@ -8,7 +8,11 @@ import (
 	"log"
 )
 
+var forceActivate bool
+
 func init() {
+	activateCmd.Flags().BoolVarP(&forceActivate, "force", "f", false,
+		"Force activation even if another project is currently active")
 	RootCmd.AddCommand(activateCmd)
 }
 
@@ -25,7 +29,7 @@ var activateCmd = &cobra.Command{
 			log.Fatalf("error: %v", err)
 		}
 
-		if switchProjectName != "" {
+		if !forceActivate && switchProjectName != "" {
 			if switchProjectName == project.ProjectName {
 				log.Fatal("error: current project already active\n")
 			} else {

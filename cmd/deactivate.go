@@ -8,7 +8,11 @@ import (
 	"log"
 )
 
+var forceDeactivate bool
+
 func init() {
+	deactivateCmd.Flags().BoolVarP(&forceDeactivate, "force", "f", false,
+		"Force deactivation even if another project is currently active")
 	RootCmd.AddCommand(deactivateCmd)
 }
 
@@ -21,12 +25,14 @@ var deactivateCmd = &cobra.Command{
 			log.Fatalf("error: %v", err)
 		}
 
-		if switchProjectName == "" {
-			log.Fatal("error: no project active\n")
-		}
+		if !forceDeactivate {
+			if switchProjectName == "" {
+				log.Fatal("error: no active project\n")
+			}
 
-		if switchProjectName != project.ProjectName {
-			log.Fatalf("error: project '%s' already active", switchProjectName)
+			if switchProjectName != project.ProjectName {
+				log.Fatalf("error: project '%s' already active", switchProjectName)
+			}
 		}
 
 		err = switcher.UnsetSwitch()
@@ -34,6 +40,10 @@ var deactivateCmd = &cobra.Command{
 			log.Fatalf("error: %v", err)
 		}
 
-		fmt.Printf("Project '%s' deactivated\n", project.ProjectName)
+		if switchProjectName != "" {
+			fmt.Printf("Project '%s' deactivated\n", switchProjectName)
+		} else {
+			fmt.Print("No active project to deactivate\n")
+		}
 	},
 }

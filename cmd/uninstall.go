@@ -9,7 +9,11 @@ import (
 	"os"
 )
 
+var forceUninstall bool
+
 func init() {
+	uninstallCmd.Flags().BoolVarP(&forceUninstall, "force", "f", false,
+		"Force uninstall even if project is currently active")
 	RootCmd.AddCommand(uninstallCmd)
 }
 
@@ -26,7 +30,7 @@ var uninstallCmd = &cobra.Command{
 			log.Fatalf("error: %v", err)
 		}
 
-		if currentActiveProject == project.ProjectName {
+		if !forceUninstall && currentActiveProject == project.ProjectName {
 			log.Fatal("error: project is currently active - please run `dpm deactivate` first\n")
 		}
 
