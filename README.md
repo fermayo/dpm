@@ -10,13 +10,13 @@ Install Docker. Then:
 
     curl -L "https://github.com/fermayo/dpm/releases/download/0.2.0/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
 
-And add `~/.dpm` to your shell path. For example, for `bash`:
+And add `~/.dpm` to your `$PATH`. For example, for `bash`:
 
-    echo "export PATH=$PATH:$HOME/.dpm" >> ~/.bashrc
+    echo "export PATH=\$PATH:$HOME/.dpm" >> ~/.bashrc
 
-If you want project commands defined with `dpm` to override system commands (if you trust your projects!), use the following instead:
+If you want project commands installed with `dpm` to override system commands (be careful!), use the following instead:
 
-    echo "export PATH=$HOME/.dpm:$PATH" >> ~/.bashrc
+    echo "export PATH=$HOME/.dpm:\$PATH" >> ~/.bashrc
 
 
 ## Usage
@@ -66,13 +66,6 @@ Then, just execute them as if they were installed in your OS:
     $ go version
     go version go1.7.5 linux/amd64
 
-You can also list which commands are available by running:
+You can also list which commands are currently available by running:
 
     dpm list
-
-
-### Uninstalling commands
-
-To remove all commands from the current project, just run:
-
-    dpm uninstall
