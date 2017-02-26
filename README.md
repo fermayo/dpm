@@ -2,8 +2,7 @@
 
 Install development tools locally to your project using docker containers
 
-[![asciicast](https://asciinema.org/a/f056w0w93x0b2tpgppkzegw50.png)](https://asciinema.org/a/f056w0w93x0b2tpgppkzegw50)
-
+[![asciicast](https://asciinema.org/a/5h4iu5ypry79rw7hgxq4hteyc.png)](https://asciinema.org/a/5h4iu5ypry79rw7hgxq4hteyc)
 
 ## Installation
 
