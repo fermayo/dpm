@@ -37,7 +37,7 @@ commands:
 
 These are container definitions with a syntax similar to Compose. The following defaults will apply:
 * The entrypoint of the container defaults to the command name
-* The project root is mounted read/write to `context` (default: `/run/context`)
+* The current folder is mounted read/write to `context` (default: `/run/context`)
 * The working directory defaults to `context` (default: `/run/context`)
 * Containers are deleted after execution (`--rm`)
 * They are run in interactive mode (`-i`) and with tty enabled (`-t`)
