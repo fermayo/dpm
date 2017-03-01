@@ -8,7 +8,7 @@ Wouldn't it be great if the only tool you need to start developing on any projec
 
 Install Docker. Then:
 
-    curl -L "https://github.com/fermayo/dpm/releases/download/0.2.1/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
+    curl -L "https://github.com/fermayo/dpm/releases/download/0.2.2/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
 
 And add `~/.dpm` to your `$PATH`. For example, for `bash`:
 
