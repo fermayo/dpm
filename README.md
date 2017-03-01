@@ -44,7 +44,7 @@ These are container definitions with a syntax similar to Compose. The following 
 
 You can override these or define any other container attributes.
 
-Currently only the following attributes are supported: `image`, `entrypoint`, `context`.
+Currently only the following attributes are supported: `image`, `entrypoint`, `context`, `volumes`.
 
 ### Installing commands
 

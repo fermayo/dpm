@@ -5,4 +5,5 @@ type Command struct {
 	Image      string
 	Entrypoint string
 	Context    string
+	Volumes    []string
 }

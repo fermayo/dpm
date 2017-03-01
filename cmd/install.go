@@ -67,6 +67,10 @@ var installCmd = &cobra.Command{
 }
 
 func commandToDockerCLI(command parser.Command) string {
-	return fmt.Sprintf("docker run -it --rm -v $(pwd):%s -w %s --entrypoint %s %s \"$@\"",
-		command.Context, command.Context, command.Entrypoint, command.Image)
+	volumes := ""
+	for _, volume := range command.Volumes {
+		volumes = fmt.Sprintf("%s -v %s", volumes, volume)
+	}
+	return fmt.Sprintf("docker run -it --rm -v $(pwd):%s %s -w %s --entrypoint %s %s \"$@\"",
+		command.Context, volumes, command.Context, command.Entrypoint, command.Image)
 }
