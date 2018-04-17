@@ -26,6 +26,7 @@ func getCLICommand(pkg string) Command {
 	name, image := getPackageNameAndImage(pkg)
 	command.Name = name
 	command.Image = image
+	command.Entrypoint = name
 
 	return command
 }

@@ -1,9 +1,11 @@
 package parser
 
 type Command struct {
-	Name       string
-	Image      string
-	Entrypoint string
-	Context    string
-	Volumes    []string
+	Name       string   `yaml:"-"`
+	Image      string   `yaml:"image"`
+	Entrypoint string   `yaml:"entrypoint,omitempty"`
+	Context    string   `yaml:"context,omitempty"`
+	Volumes    []string `yaml:"volumes,omitempty"`
 }
+
+// type dpmFile map[string]map[string]Command

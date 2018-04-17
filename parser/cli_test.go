@@ -11,32 +11,37 @@ func TestGetCLICommands(t *testing.T) {
 
 	inputOne := "node:6"
 	outputOne := Command{
-		Name:  "node",
-		Image: "node:6",
+		Name:       "node",
+		Image:      "node:6",
+		Entrypoint: "node",
 	}
 
 	inputTwo := "python"
 	outputTwo := Command{
-		Name:  "python",
-		Image: "python:latest",
+		Name:       "python",
+		Image:      "python:latest",
+		Entrypoint: "python",
 	}
 
 	inputThree := "go=golang:1.7.5"
 	outputThree := Command{
-		Name:  "go",
-		Image: "golang:1.7.5",
+		Name:       "go",
+		Image:      "golang:1.7.5",
+		Entrypoint: "go",
 	}
 
 	inputFour := "test=jpz13/foo:13"
 	outputFour := Command{
-		Name:  "test",
-		Image: "jpz13/foo:13",
+		Name:       "test",
+		Image:      "jpz13/foo:13",
+		Entrypoint: "test",
 	}
 
 	inputFive := "jpz13/bar:13"
 	outputFive := Command{
-		Name:  "bar",
-		Image: "jpz13/bar:13",
+		Name:       "bar",
+		Image:      "jpz13/bar:13",
+		Entrypoint: "bar",
 	}
 
 	inputSlice := []string{
