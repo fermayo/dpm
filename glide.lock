@@ -1,14 +1,16 @@
-hash: 9a1fe00cbd0f425e4a44cc82ec9ea652e4ebca6e338c8826f5a6d8dcf622fa8d
-updated: 2017-02-25T23:57:41.537699241Z
+hash: 6a4a6253b6e9d3dc1ebb4f303d814eeccf2f39af463fc4ed174862336cfea90e
+updated: 2018-04-17T11:07:08.684411295-07:00
 imports:
 - name: github.com/go-yaml/yaml
-  version: a3f3340b5840cee44f372bddb5880fcbc419b46a
+  version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/mitchellh/go-homedir
   version: b8bc1bf767474819792c23f32d8286a45736f1c6
 - name: github.com/spf13/cobra
-  version: 92ea23a837e66f46ac9e7d04fa826602b7b0a42d
+  version: 615425954c3b0d9485a7027d4d451fdcdfdee84e
 - name: github.com/spf13/pflag
-  version: 9ff6c6923cfffbcd502984b8e0c80539a94968b7
+  version: 583c0c0531f06d5278b7d917446061adc344b5cd
+- name: github.com/stretchr/testify
+  version: 12b6f73e6084dad08a7c6e575284b177ecafbc71
 testImports: []

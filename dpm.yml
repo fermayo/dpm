@@ -1,7 +1,19 @@
 commands:
-  go:
-    image: golang:1.7.5
-    context: /go/src/github.com/fermayo/dpm
-
   glide:
+    name: ""
     image: dockerepo/glide
+    entrypoint: ""
+    context: ""
+    volumes: []
+  go:
+    name: ""
+    image: golang:1.7.5
+    entrypoint: ""
+    context: /go/src/github.com/fermayo/dpm
+    volumes: []
+  python:
+    name: python
+    image: ""
+    entrypoint: ""
+    context: ""
+    volumes: []
