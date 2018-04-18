@@ -2,10 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+
+	"github.com/fermayo/dpm/alias"
 	"github.com/fermayo/dpm/project"
 	"github.com/fermayo/dpm/switcher"
 	"github.com/spf13/cobra"
-	"log"
 )
 
 var forceDeactivate bool
@@ -36,6 +38,11 @@ var deactivateCmd = &cobra.Command{
 		}
 
 		err = switcher.UnsetSwitch()
+		if err != nil {
+			log.Fatalf("error: %v", err)
+		}
+
+		err = alias.UnsetAliases()
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}

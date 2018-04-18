@@ -2,10 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+
+	"github.com/fermayo/dpm/alias"
 	"github.com/fermayo/dpm/project"
 	"github.com/fermayo/dpm/switcher"
 	"github.com/spf13/cobra"
-	"log"
 )
 
 var forceActivate bool
@@ -21,6 +23,7 @@ var activateCmd = &cobra.Command{
 	Short: "Activates the project in the current shell",
 	Run: func(cmd *cobra.Command, args []string) {
 		if !project.IsProjectInstalled() {
+			// TODO: Just install the project instead of kicking error
 			log.Fatal("error: commands are not installed - please run `dpm install` first\n")
 		}
 
@@ -38,6 +41,11 @@ var activateCmd = &cobra.Command{
 		}
 
 		err = switcher.SetSwitch(project.ProjectCmdPath)
+		if err != nil {
+			log.Fatalf("error: %v", err)
+		}
+
+		err = alias.SetAliases()
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
