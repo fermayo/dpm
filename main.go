@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/fermayo/dpm/cmd"
 	"log"
 	"os"
+
+	"github.com/fermayo/dpm/cmd"
 )
 
 func main() {

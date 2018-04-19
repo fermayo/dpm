@@ -17,7 +17,7 @@ const (
 )
 
 const (
-	bashFile       = "#!/bin/bash\nexec \"%s/%s\" \"$@\""
+	bashFile       = "#!/bin/bash\nif [ \"$DPM_ACTIVE\" == '1' ]; then\nexec \"%s/%s\" \"$@\"\nelse\nexec %s/%s-home \"$@\"\nfi"
 	binaryLocation = "/usr/local/bin" // TODO: make variable for Windows
 )
 
@@ -97,7 +97,7 @@ func setAlias(alias string) error {
 // maps the command to what's in the project
 // .dpm folder
 func generateBashFile(alias string) error {
-	contents := fmt.Sprintf(bashFile, project.ProjectCmdPath, alias)
+	contents := fmt.Sprintf(bashFile, project.ProjectCmdPath, alias, binaryLocation, alias)
 
 	targetPath := fmt.Sprintf("%s/%s", binaryLocation, alias)
 	err := ioutil.WriteFile(targetPath, []byte(contents), 0755)

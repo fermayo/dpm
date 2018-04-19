@@ -6,6 +6,7 @@ import (
 
 	"github.com/fermayo/dpm/alias"
 	"github.com/fermayo/dpm/project"
+	"github.com/fermayo/dpm/shell"
 	"github.com/fermayo/dpm/switcher"
 	"github.com/spf13/cobra"
 )
@@ -46,6 +47,11 @@ var activateCmd = &cobra.Command{
 		}
 
 		err = alias.SetAliases()
+		if err != nil {
+			log.Fatalf("error: %v", err)
+		}
+
+		err = shell.StartShell()
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
