@@ -1,8 +1,12 @@
-# dpm
+# Docker Package Manager
 
-Wouldn't it be great if the only tool you need to start developing on any project is just _Docker_?
+Tired of spending too much time configuring your machine? Me too.
 
-[![asciicast](https://asciinema.org/a/5h4iu5ypry79rw7hgxq4hteyc.png)](https://asciinema.org/a/5h4iu5ypry79rw7hgxq4hteyc)
+DPM solves:
+- Issues with different versions of node, python, golang etc
+- System dependency conflicts
+- Endlessly chaining things to your $PATH
+- Random software updates that break everything
 
 ## Installation
 
@@ -10,14 +14,8 @@ Install Docker. Then:
 
     curl -L "https://github.com/fermayo/dpm/releases/download/0.2.2/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
 
-And add `~/.dpm` to your `$PATH`. For example, for `bash`:
-
-    echo "export PATH=\$PATH:$HOME/.dpm" >> ~/.bashrc
-
-If you want project commands installed with `dpm` to override system commands (be careful!), use the following instead:
-
-    echo "export PATH=$HOME/.dpm:\$PATH" >> ~/.bashrc
-
+Make sure /usr/local/bin is ahead of /usr/bin in your $PATH. Most likely, this
+is already the case.
 
 ## Usage
 
@@ -69,3 +67,8 @@ Then, just execute them as if they were installed in your OS:
 You can also list which commands are currently available by running:
 
     dpm list
+
+### Deactivate
+To go back to your normal system configuration,
+
+  dpm deactivate
