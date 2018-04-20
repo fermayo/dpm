@@ -10,7 +10,6 @@ import (
 
 	"github.com/fermayo/dpm/parser"
 	"github.com/fermayo/dpm/project"
-	"github.com/fermayo/dpm/switcher"
 	"github.com/spf13/cobra"
 )
 
@@ -70,13 +69,7 @@ func installYAMLPackages() {
 
 	fmt.Printf("Installed: %s\n", strings.Join(commandNames, ", "))
 
-	switchProjectName, err := switcher.GetSwitchProjectName()
-	if err != nil {
-		log.Fatalf("error: %v", err)
-	}
-	if switchProjectName == "" {
-		fmt.Print("Now you can run `dpm activate` to start using your new commands\n")
-	}
+	fmt.Print("Now you can run `dpm activate` to start using your new commands\n")
 }
 
 func installListedPackages(packages []string) error {

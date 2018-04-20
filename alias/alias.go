@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
 
 	"github.com/fermayo/dpm/parser"
 	"github.com/fermayo/dpm/project"
+	"github.com/fermayo/dpm/utils"
 )
 
 type aliasSetter bool
@@ -63,14 +65,15 @@ func setOrUnsetAlias(alias string, setter aliasSetter) error {
 // and restores the old alias
 func unsetAlias(alias string) error {
 	file := fmt.Sprintf("%s-home", alias)
-	doesExist, err := doesFileExist(file)
+	filename := path.Join(binaryLocation, file)
+	doesExist, err := utils.DoesFileExist(filename)
 	if err != nil {
 		return err
 	}
 
-	new := fmt.Sprintf("%s/%s", binaryLocation, alias)
+	new := path.Join(binaryLocation, alias)
 	if doesExist {
-		old := fmt.Sprintf("/usr/local/bin/%s-home", alias)
+		old := fmt.Sprintf("%s/%s-home", binaryLocation, alias)
 		return os.Rename(old, new)
 	}
 
@@ -99,7 +102,7 @@ func setAlias(alias string) error {
 func generateBashFile(alias string) error {
 	contents := fmt.Sprintf(bashFile, project.ProjectCmdPath, alias, binaryLocation, alias)
 
-	targetPath := fmt.Sprintf("%s/%s", binaryLocation, alias)
+	targetPath := path.Join(binaryLocation, alias)
 	err := ioutil.WriteFile(targetPath, []byte(contents), 0755)
 	if err != nil {
 		return err
@@ -111,7 +114,8 @@ func generateBashFile(alias string) error {
 // moveExistingAlias moves the old command
 // to a new file
 func moveExistingAlias(alias string) error {
-	doesExist, err := doesFileExist(alias)
+	filename := path.Join(binaryLocation, alias)
+	doesExist, err := utils.DoesFileExist(filename)
 	if err != nil {
 		return err
 	}
@@ -120,21 +124,7 @@ func moveExistingAlias(alias string) error {
 		return nil
 	}
 
-	old := fmt.Sprintf("%s/%s", binaryLocation, alias)
+	old := path.Join(binaryLocation, alias)
 	new := fmt.Sprintf("%s/%s-home", binaryLocation, alias)
 	return os.Rename(old, new)
-}
-
-// doesFileExist is a convenience method to
-// tell if the command exists in /usr/local/bin
-func doesFileExist(file string) (bool, error) {
-	location := fmt.Sprintf("%s/%s", binaryLocation, file)
-	_, err := os.Stat(location)
-	if os.IsNotExist(err) {
-		return false, nil
-	} else if err != nil {
-		return false, err
-	}
-
-	return true, nil
 }

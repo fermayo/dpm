@@ -7,7 +7,6 @@ import (
 	"github.com/fermayo/dpm/alias"
 	"github.com/fermayo/dpm/project"
 	"github.com/fermayo/dpm/shell"
-	"github.com/fermayo/dpm/switcher"
 	"github.com/spf13/cobra"
 )
 
@@ -28,20 +27,7 @@ var activateCmd = &cobra.Command{
 			log.Fatal("error: commands are not installed - please run `dpm install` first\n")
 		}
 
-		switchProjectName, err := switcher.GetSwitchProjectName()
-		if err != nil {
-			log.Fatalf("error: %v", err)
-		}
-
-		if !forceActivate && switchProjectName != "" {
-			if switchProjectName == project.ProjectName {
-				log.Fatal("error: current project already active\n")
-			} else {
-				log.Fatalf("error: project '%s' already active", switchProjectName)
-			}
-		}
-
-		err = switcher.SetSwitch(project.ProjectCmdPath)
+		err := project.ActivateProject()
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
@@ -51,7 +37,7 @@ var activateCmd = &cobra.Command{
 			log.Fatalf("error: %v", err)
 		}
 
-		err = shell.StartShell()
+		err = shell.StartShell(shell.Activate)
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}

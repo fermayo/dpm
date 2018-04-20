@@ -2,13 +2,13 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/fermayo/dpm/parser"
-	"github.com/fermayo/dpm/switcher"
-	"github.com/spf13/cobra"
 	"log"
 	"os"
-	"path"
 	"text/tabwriter"
+
+	"github.com/fermayo/dpm/parser"
+	"github.com/fermayo/dpm/project"
+	"github.com/spf13/cobra"
 )
 
 func init() {
@@ -19,21 +19,16 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List available commands in the current project",
 	Run: func(cmd *cobra.Command, args []string) {
-		switchProjectName, err := switcher.GetSwitchProjectName()
+		isActive, err := project.IsProjectActive()
 		if err != nil {
-			log.Fatalf("error: %v", err)
+			log.Fatalf("error: %s", err)
 		}
 
-		if switchProjectName == "" {
+		if !isActive {
 			log.Fatal("error: no active project - please run `dpm activate` first from your project root")
 		}
 
-		switchProjectPath, err := switcher.GetSwitchProjectPath()
-		if err != nil {
-			log.Fatalf("error: %v", err)
-		}
-
-		commands := parser.GetCommands(path.Join(switchProjectPath, "dpm.yml"))
+		commands := parser.GetCommands(project.ProjectFilePath)
 		w := tabwriter.NewWriter(os.Stdout, 0, 8, 0, '\t', 0)
 		fmt.Fprintln(w, "COMMAND\tIMAGE\tENTRYPOINT")
 		for name, command := range commands {

@@ -6,10 +6,15 @@ import (
 	"path"
 )
 
+const (
+	configName = ".dpm-config.json"
+)
+
 var ProjectPath string
 var ProjectCmdPath string
 var ProjectFilePath string
 var ProjectName string
+var ProjectActive bool
 
 func init() {
 	wd, err := os.Getwd()
@@ -20,6 +25,7 @@ func init() {
 	ProjectCmdPath = path.Join(wd, ".dpm")
 	ProjectFilePath = path.Join(wd, "dpm.yml")
 	ProjectName = path.Base(ProjectPath)
+	ProjectActive = false
 }
 
 func IsProjectInitialized() bool {

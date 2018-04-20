@@ -5,7 +5,14 @@ import (
 	"os"
 )
 
-func StartShell() error {
+type ProjectState bool
+
+const (
+	Activate   ProjectState = true
+	Deactivate ProjectState = false
+)
+
+func StartShell(activate ProjectState) error {
 	// Get the current working directory.
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -13,7 +20,11 @@ func StartShell() error {
 	}
 
 	// Set an environment variable.
-	os.Setenv("DPM_ACTIVE", "1")
+	if activate == Activate {
+		os.Setenv("DPM_ACTIVE", "1")
+	} else if activate == Deactivate {
+		os.Unsetenv("DPM_ACTIVE")
+	}
 
 	// Transfer stdin, stdout, and stderr to the new process
 	// and also set target directory for the shell to start in.
