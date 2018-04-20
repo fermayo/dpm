@@ -1,8 +1,13 @@
 commands:
   glide:
     image: dockerepo/glide
+    entrypoint: glide
+    context: /run/context
   go:
     image: golang:1.7.5
+    entrypoint: go
     context: /go/src/github.com/fermayo/dpm
   python:
     image: python:latest
+    entrypoint: python
+    context: /run/context

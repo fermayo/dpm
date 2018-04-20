@@ -1,9 +1,12 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"log"
 	"os"
 
+	"github.com/fermayo/dpm/parser"
 	"github.com/fermayo/dpm/project"
 	"github.com/spf13/cobra"
 )
@@ -23,8 +26,34 @@ var uninstallCmd = &cobra.Command{
 		// TODO: add option to remove images
 		// will need to implement something that shows what
 		// images are used by each project
+		if len(args) == 0 {
+			uninstallAll()
+		} else {
+			err := uninstallListedPackages(args)
+			if err != nil {
+				log.Fatalf("error: %v", err)
+			}
 
-		os.RemoveAll(project.ProjectCmdPath)
-		fmt.Println("All commands uninstalled")
+			installYAMLPackages()
+		}
 	},
+}
+
+func uninstallAll() {
+	os.RemoveAll(project.ProjectCmdPath)
+	fmt.Println("All commands uninstalled")
+}
+
+func uninstallListedPackages(packages []string) error {
+	commands := parser.GetCommands(project.ProjectFilePath)
+
+	for _, pkg := range packages {
+		if _, ok := commands[pkg]; ok {
+			delete(commands, pkg)
+			continue
+		}
+		return errors.New(fmt.Sprintf("Command %s not in project", pkg))
+	}
+
+	return parser.UpdateCommands(project.ProjectFilePath, commands)
 }

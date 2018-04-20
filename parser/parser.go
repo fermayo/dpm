@@ -57,6 +57,16 @@ func AddCommands(filename string, commands map[string]Command) error {
 	return writeInputFile(filename, inputFile)
 }
 
+func UpdateCommands(filename string, commands map[string]Command) error {
+	inputFile, err := getInputFile(filename)
+	if err != nil {
+		return err
+	}
+
+	inputFile["commands"] = commands
+	return writeInputFile(filename, inputFile)
+}
+
 func getInputFile(filename string) (map[string]map[string]Command, error) {
 	fileBytes, err := ioutil.ReadFile(filename)
 	if err != nil {

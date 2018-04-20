@@ -36,9 +36,9 @@ var installCmd = &cobra.Command{
 			if err != nil {
 				log.Fatalf("error: %v", err)
 			}
-		} else {
-			installYAMLPackages()
 		}
+
+		installYAMLPackages()
 	},
 }
 

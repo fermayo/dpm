@@ -23,8 +23,7 @@ var activateCmd = &cobra.Command{
 	Short: "Activates the project in the current shell",
 	Run: func(cmd *cobra.Command, args []string) {
 		if !project.IsProjectInstalled() {
-			// TODO: Just install the project instead of kicking error
-			log.Fatal("error: commands are not installed - please run `dpm install` first\n")
+			installYAMLPackages()
 		}
 
 		err := project.ActivateProject()
