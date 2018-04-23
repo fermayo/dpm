@@ -11,6 +11,7 @@ const (
 	projectNotActiveError = "Project already not active"
 )
 
+// DeactivateProject removes the project from the config json file
 func DeactivateProject() error {
 	homeDir, err := getHomeDirectory()
 	if err != nil {
@@ -33,7 +34,7 @@ func DeactivateProject() error {
 		return errors.New(projectNotActiveError)
 	}
 
-	projectTable[ProjectFilePath] = false
+	delete(projectTable, ProjectFilePath)
 
 	return writeProjectTableToFile(projectTable, filename)
 }

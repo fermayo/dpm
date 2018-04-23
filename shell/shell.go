@@ -3,15 +3,22 @@ package shell
 import (
 	"fmt"
 	"os"
+
+	"github.com/fermayo/dpm/project"
 )
 
+// ProjectState controls whether a project is active
 type ProjectState bool
 
 const (
-	Activate   ProjectState = true
+	// Activate tells StartShell to activate env
+	Activate ProjectState = true
+	// Deactivate tells StartShell to unset env
 	Deactivate ProjectState = false
 )
 
+// StartShell spawns a shell with updated
+// environment variables
 func StartShell(activate ProjectState) error {
 	// Get the current working directory.
 	cwd, err := os.Getwd()
@@ -21,7 +28,7 @@ func StartShell(activate ProjectState) error {
 
 	// Set an environment variable.
 	if activate == Activate {
-		os.Setenv("DPM_ACTIVE", "1")
+		os.Setenv("DPM_ACTIVE", project.ProjectCmdPath)
 	} else if activate == Deactivate {
 		os.Unsetenv("DPM_ACTIVE")
 	}
