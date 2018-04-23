@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -9,7 +8,6 @@ import (
 
 func TestGetCommands(t *testing.T) {
 	commandMap := GetCommands("./test-data/dpm.yml")
-	fmt.Println("SHOW COMMANDS", commandMap)
 	glideCommand := Command{
 		Name:       "glide",
 		Image:      "dockerepo/glide",
