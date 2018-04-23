@@ -1,5 +1,6 @@
 package parser
 
+// Command contains YAML definition for a command
 type Command struct {
 	Name       string   `yaml:"-"`
 	Image      string   `yaml:"image"`
@@ -8,4 +9,5 @@ type Command struct {
 	Volumes    []string `yaml:"volumes,omitempty"`
 }
 
-// type dpmFile map[string]map[string]Command
+// dpmFile is the type for the entire YAML file
+type dpmFile map[string]map[string]Command

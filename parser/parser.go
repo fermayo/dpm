@@ -8,13 +8,14 @@ import (
 	"github.com/go-yaml/yaml"
 )
 
+// GetCommands gets all the commands in a dpm.yml file
 func GetCommands(filename string) map[string]Command {
 	fileBytes, err := ioutil.ReadFile(filename)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
 
-	inputfile := map[string]map[string]Command{}
+	inputfile := dpmFile{}
 	err = yaml.Unmarshal([]byte(fileBytes), &inputfile)
 	if err != nil {
 		log.Fatalf("error: %v", err)
@@ -42,6 +43,7 @@ func GetCommands(filename string) map[string]Command {
 	return commands
 }
 
+// AddCommands adds commands to a dpm.yml file
 func AddCommands(filename string, commands map[string]Command) error {
 	inputFile, err := getInputFile(filename)
 	if err != nil {
@@ -57,6 +59,7 @@ func AddCommands(filename string, commands map[string]Command) error {
 	return writeInputFile(filename, inputFile)
 }
 
+// UpdateCommands replaces commands in a dpm.yml file
 func UpdateCommands(filename string, commands map[string]Command) error {
 	inputFile, err := getInputFile(filename)
 	if err != nil {
@@ -67,13 +70,13 @@ func UpdateCommands(filename string, commands map[string]Command) error {
 	return writeInputFile(filename, inputFile)
 }
 
-func getInputFile(filename string) (map[string]map[string]Command, error) {
+func getInputFile(filename string) (dpmFile, error) {
 	fileBytes, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
 
-	inputFile := map[string]map[string]Command{}
+	inputFile := dpmFile{}
 	err = yaml.Unmarshal([]byte(fileBytes), &inputFile)
 	if err != nil {
 		return nil, err
@@ -96,7 +99,7 @@ func appendCommandMaps(mapOne, mapTwo map[string]Command) map[string]Command {
 	return combinedMaps
 }
 
-func writeInputFile(filename string, inputFile map[string]map[string]Command) error {
+func writeInputFile(filename string, inputFile dpmFile) error {
 	bytes, err := yaml.Marshal(inputFile)
 	if err != nil {
 		return err
