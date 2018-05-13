@@ -38,51 +38,85 @@ var installCmd = &cobra.Command{
 			}
 		}
 
-		installYAMLPackages()
+		err = installYAMLPackages()
+		if err != nil {
+			log.Fatalf("error: %v", err)
+		}
 	},
 }
 
-func installYAMLPackages() {
+// installYAMLPackages writes bash scripts for
+// each of the commands listed in the dpm.yml file
+func installYAMLPackages() error {
 	commands := parser.GetCommands(project.ProjectFilePath)
 	data, err := ioutil.ReadFile(project.ProjectFilePath)
 	if err != nil {
-		log.Fatalf("error: %v", err)
+		return err
 	}
 
+	// TODO: figure out what this is used for
 	err = ioutil.WriteFile(path.Join(project.ProjectCmdPath, "dpm.yml"), data, 0644)
 	if err != nil {
-		log.Fatalf("error: %v", err)
+		return err
 	}
 
 	fmt.Printf("Installing %d commands...\n", len(commands))
+
 	commandNames := []string{}
 
 	for name, command := range commands {
 		commandNames = append(commandNames, name)
-		targetPath := path.Join(project.ProjectCmdPath, name)
-		contents := fmt.Sprintf("#!/bin/sh\nexec %s", commandToDockerCLI(command))
-		err = ioutil.WriteFile(targetPath, []byte(contents), 0755)
+		cliCommands := commandToDockerCLIs(command)
+		err = writeDockerBashCommands(cliCommands)
 		if err != nil {
-			log.Fatalf("error: %v", err)
+			return err
 		}
 	}
 
 	fmt.Printf("Installed: %s\n", strings.Join(commandNames, ", "))
 
 	fmt.Print("Now you can run `dpm activate` to start using your new commands\n")
+
+	return nil
 }
 
+// installListedPackages adds packages listed after
+// install on the CLI to the dpm.yml file
 func installListedPackages(packages []string) error {
-	commands := parser.GetCLICommands(packages)
+	commands := parser.GetCommandsFromCLI(packages)
 
 	return parser.AddCommands(project.ProjectFilePath, commands)
 }
 
-func commandToDockerCLI(command parser.Command) string {
+// commandToDockerCLIs takes a command and translates it into
+// a docker cli command. It returns a map of the entrypoint to the
+// docker command
+func commandToDockerCLIs(command parser.Command) map[string]string {
 	volumes := ""
 	for _, volume := range command.Volumes {
 		volumes = fmt.Sprintf("%s -v %s", volumes, volume)
 	}
-	return fmt.Sprintf("docker run -it --rm -v $(pwd):%s %s -w %s --entrypoint %s %s \"$@\"",
-		command.Context, volumes, command.Context, command.Entrypoint, command.Image)
+
+	cliCommands := make(map[string]string)
+	for _, entrypoint := range command.Entrypoints {
+		cliCommands[entrypoint] = fmt.Sprintf("docker run -it --rm -v $(pwd):%s %s -w %s --entrypoint %s %s \"$@\"",
+			command.Context, volumes, command.Context, entrypoint, command.Image)
+	}
+
+	return cliCommands
+}
+
+// writeDockerBashCommands :
+func writeDockerBashCommands(cliCommands map[string]string) error {
+	for entrypoint, bashCommand := range cliCommands {
+		targetPath := path.Join(project.ProjectCmdPath, entrypoint)
+		contents := fmt.Sprintf("#!/bin/sh\nexec %s", bashCommand)
+
+		err := ioutil.WriteFile(targetPath, []byte(contents), 0755)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

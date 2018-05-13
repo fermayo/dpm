@@ -7,6 +7,10 @@ import (
 	"github.com/fermayo/dpm/utils"
 )
 
+// ActivateProject makes a config file at
+// $HOME/.dpm-config.json if it doesn't exist
+// or sets the project path to true in the
+// corresponding json
 func ActivateProject() error {
 	configFileName, err := makeConfigIfNotExist()
 	if err != nil {
@@ -16,6 +20,9 @@ func ActivateProject() error {
 	return activateProjectInConfig(configFileName)
 }
 
+// IsProjectActive reads the config  file
+// at $HOME/.dpm-config.json to determine
+// if the project is active
 func IsProjectActive() (bool, error) {
 	homeDir, err := getHomeDirectory()
 	if err != nil {
@@ -40,6 +47,9 @@ func IsProjectActive() (bool, error) {
 	return projectTable[ProjectFilePath], nil
 }
 
+// activateProjectInConfig unmarshals the config json,
+// sets the key of the project's file path the true,
+// marshals the json, and writes the file like a gangsta
 func activateProjectInConfig(filename string) error {
 	projectTable, err := getProjectTable(filename)
 	if err != nil {
@@ -51,6 +61,8 @@ func activateProjectInConfig(filename string) error {
 	return writeProjectTableToFile(projectTable, filename)
 }
 
+// makeConfigIfNotExist writes the config
+// if the file does not exist
 func makeConfigIfNotExist() (string, error) {
 	homeDir, err := getHomeDirectory()
 	if err != nil {

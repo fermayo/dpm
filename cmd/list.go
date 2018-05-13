@@ -32,7 +32,7 @@ var listCmd = &cobra.Command{
 		w := tabwriter.NewWriter(os.Stdout, 0, 8, 0, '\t', 0)
 		fmt.Fprintln(w, "COMMAND\tIMAGE\tENTRYPOINT")
 		for name, command := range commands {
-			fmt.Fprintf(w, "%s\t%s\t%s\n", name, command.Image, command.Entrypoint)
+			fmt.Fprintf(w, "%s\t%s\t%s\n", name, command.Image, command.Entrypoints)
 		}
 		w.Flush()
 	},

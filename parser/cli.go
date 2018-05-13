@@ -4,29 +4,32 @@ import (
 	"strings"
 )
 
-// GetCLICommands returns a slice of Commands
+// GetCommandsFromCLI returns a slice of Commands
 // it expects package strings to be formatted
 // {name}={user}/{image}:{tag}, where image is
 // the only required field
 // TODO: add validation
-func GetCLICommands(packages []string) map[string]Command {
+func GetCommandsFromCLI(packages []string) map[string]Command {
 	commands := map[string]Command{}
 
 	for _, pkg := range packages {
-		command := getCLICommand(pkg)
+		command := getCommandFromCLI(pkg)
 		commands[command.Name] = command
 	}
 
 	return commands
 }
 
-func getCLICommand(pkg string) Command {
+// getCommandFromCLI takes a user's listed pkg on
+// the CLI and turns it into a command to be parsed
+// into yml
+func getCommandFromCLI(pkg string) Command {
 	command := Command{}
 
 	name, image := getPackageNameAndImage(pkg)
 	command.Name = name
 	command.Image = image
-	command.Entrypoint = name
+	command.Entrypoints = append(command.Entrypoints, name)
 
 	return command
 }

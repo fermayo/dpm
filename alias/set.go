@@ -60,7 +60,7 @@ func moveExistingAlias(alias string) error {
 	}
 
 	if !doesExist {
-		return nil
+		return utils.WriteBashScript(filename, bashFileIfNotExist)
 	}
 
 	old := path.Join(binaryLocation, alias)

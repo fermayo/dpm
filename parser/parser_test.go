@@ -9,24 +9,30 @@ import (
 func TestGetCommands(t *testing.T) {
 	commandMap := GetCommands("./test-data/dpm.yml")
 	glideCommand := Command{
-		Name:       "glide",
-		Image:      "dockerepo/glide",
-		Context:    "/run/context",
-		Entrypoint: "glide",
+		Name:    "glide",
+		Image:   "dockerepo/glide",
+		Context: "/run/context",
+		Entrypoints: []string{
+			"glide",
+		},
 	}
 
 	goCommand := Command{
-		Name:       "go",
-		Image:      "golang:1.7.5",
-		Context:    "/go/src/github.com/fermayo/dpm",
-		Entrypoint: "go",
+		Name:    "go",
+		Image:   "golang:1.7.5",
+		Context: "/go/src/github.com/fermayo/dpm",
+		Entrypoints: []string{
+			"go",
+		},
 	}
 
 	pythonCommand := Command{
-		Name:       "python",
-		Image:      "python:latest",
-		Context:    "/run/context",
-		Entrypoint: "python",
+		Name:    "python",
+		Image:   "python:latest",
+		Context: "/run/context",
+		Entrypoints: []string{
+			"python",
+		},
 	}
 
 	require.Equal(t, glideCommand, commandMap[glideCommand.Name])

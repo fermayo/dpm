@@ -33,8 +33,8 @@ func GetCommands(filename string) map[string]Command {
 			command.Context = "/run/context"
 		}
 
-		if command.Entrypoint == "" {
-			command.Entrypoint = command.Name
+		if len(command.Entrypoints) == 0 {
+			command.Entrypoints = append(command.Entrypoints, name)
 		}
 
 		commands[name] = command

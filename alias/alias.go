@@ -12,16 +12,20 @@ const (
 )
 
 const (
-	binaryLocation = "/usr/local/bin" // TODO: make variable for Windows
-	bashFile       = "#!/bin/bash\nif [ -z ${DPM_ACTIVE+x} ]; then exec %s/%s-home \"$@\"; else exec \"$DPM_ACTIVE/%s\" \"$@\"; fi"
+	binaryLocation     = "/usr/local/bin" // TODO: make variable for Windows
+	bashFile           = "#!/bin/bash\nif [ -z ${DPM_ACTIVE+x} ]; then exec %s/%s-home \"$@\"; else exec \"$DPM_ACTIVE/%s\" \"$@\"; fi"
+	bashFileIfNotExist = "if [ -z ${DPM_ACTIVE+x} ]; then exec %s/%s-home \"$@\"; else echo 'Error: command %s not found'; exit 1; fi"
 )
 
-// setOrUnsetAliases loops the commands
-func setOrUnsetAliases(aliases map[string]parser.Command, setter aliasSetter) error {
-	for alias := range aliases {
-		err := setOrUnsetAlias(alias, setter)
-		if err != nil {
-			return err
+// setOrUnsetAliases loops the entrypoints for
+// each package and runs set or unset
+func setOrUnsetAliases(packages map[string]parser.Command, setter aliasSetter) error {
+	for _, pkg := range packages {
+		for _, entrypoint := range pkg.Entrypoints {
+			err := setOrUnsetAlias(entrypoint, setter)
+			if err != nil {
+				return err
+			}
 		}
 	}
 
