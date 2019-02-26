@@ -3,6 +3,6 @@ commands:
     image: dockerepo/glide
   go:
     image: golang:1.7.5
-    context: /go/src/github.com/fermayo/dpm
+    context: /go/src/github.com/jpz13/dpm
   python:
     image: python:latest

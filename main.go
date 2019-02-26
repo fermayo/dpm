@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fermayo/dpm/cmd"
+	"github.com/jpz13/dpm/cmd"
 )
 
 func main() {

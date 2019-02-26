@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fermayo/dpm/project"
+	"github.com/jpz13/dpm/project"
 )
 
 // ProjectState controls whether a project is active

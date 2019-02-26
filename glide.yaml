@@ -1,4 +1,4 @@
-package: github.com/fermayo/dpm
+package: github.com/jpz13/dpm
 import:
 - package: github.com/go-yaml/yaml
 - package: github.com/spf13/cobra

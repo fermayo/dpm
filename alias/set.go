@@ -6,9 +6,9 @@ import (
 	"os"
 	"path"
 
-	"github.com/fermayo/dpm/parser"
-	"github.com/fermayo/dpm/project"
-	"github.com/fermayo/dpm/utils"
+	"github.com/jpz13/dpm/parser"
+	"github.com/jpz13/dpm/project"
+	"github.com/jpz13/dpm/utils"
 )
 
 // SetAliases aliases all of the commands

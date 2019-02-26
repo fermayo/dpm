@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/fermayo/dpm/project"
+	"github.com/jpz13/dpm/project"
 	"github.com/spf13/cobra"
 )
 

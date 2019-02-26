@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"path"
 
-	"github.com/fermayo/dpm/utils"
+	"github.com/jpz13/dpm/utils"
 )
 
 // ActivateProject makes a config file at

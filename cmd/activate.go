@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/fermayo/dpm/alias"
-	"github.com/fermayo/dpm/project"
-	"github.com/fermayo/dpm/shell"
+	"github.com/jpz13/dpm/alias"
+	"github.com/jpz13/dpm/project"
+	"github.com/jpz13/dpm/shell"
 	"github.com/spf13/cobra"
 )
 

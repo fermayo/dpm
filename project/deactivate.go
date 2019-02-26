@@ -4,7 +4,7 @@ import (
 	"errors"
 	"path"
 
-	"github.com/fermayo/dpm/utils"
+	"github.com/jpz13/dpm/utils"
 )
 
 const (

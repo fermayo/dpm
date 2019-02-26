@@ -8,7 +8,7 @@ commands:
     image: golang:1.7.5
     entrypoints:
       - go
-    context: /go/src/github.com/fermayo/dpm
+    context: /go/src/github.com/jpz13/dpm
   python:
     image: python:latest
     entrypoints:

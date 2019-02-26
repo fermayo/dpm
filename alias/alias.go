@@ -1,7 +1,7 @@
 package alias
 
 import (
-	"github.com/fermayo/dpm/parser"
+	"github.com/jpz13/dpm/parser"
 )
 
 type aliasSetter bool
