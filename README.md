@@ -2,8 +2,6 @@
 
 Wouldn't it be great if the only tool you need to start developing on any project is just _Docker_?
 
-[![asciicast](https://asciinema.org/a/5h4iu5ypry79rw7hgxq4hteyc.png)](https://asciinema.org/a/5h4iu5ypry79rw7hgxq4hteyc)
-
 ## Installation
 
 Install Docker. Then:
