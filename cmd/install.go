@@ -8,8 +8,8 @@ import (
 	"path"
 	"strings"
 
+	"github.com/JPZ13/dpm/internal/parser"
 	"github.com/JPZ13/dpm/internal/project"
-	"github.com/JPZ13/dpm/parser"
 	"github.com/spf13/cobra"
 )
 
