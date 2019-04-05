@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/JPZ13/dpm/alias"
+	"github.com/JPZ13/dpm/internal/alias"
 	"github.com/JPZ13/dpm/internal/project"
 	"github.com/JPZ13/dpm/internal/shell"
 	"github.com/spf13/cobra"
