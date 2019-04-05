@@ -1,7 +1,7 @@
 package alias
 
 import (
-	"github.com/jpz13/dpm/parser"
+	"github.com/JPZ13/dpm/parser"
 )
 
 type aliasSetter bool

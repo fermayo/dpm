@@ -36,19 +36,19 @@ func TestGetCLICommands(t *testing.T) {
 		},
 	}
 
-	inputFour := "test=jpz13/foo:13"
+	inputFour := "test=JPZ13/foo:13"
 	outputFour := Command{
 		Name:  "test",
-		Image: "jpz13/foo:13",
+		Image: "JPZ13/foo:13",
 		Entrypoints: []string{
 			"test",
 		},
 	}
 
-	inputFive := "jpz13/bar:13"
+	inputFive := "JPZ13/bar:13"
 	outputFive := Command{
 		Name:  "bar",
-		Image: "jpz13/bar:13",
+		Image: "JPZ13/bar:13",
 		Entrypoints: []string{
 			"bar",
 		},

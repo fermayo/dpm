@@ -6,9 +6,9 @@ import (
 	"os"
 	"path"
 
-	"github.com/jpz13/dpm/parser"
-	"github.com/jpz13/dpm/project"
-	"github.com/jpz13/dpm/utils"
+	"github.com/JPZ13/dpm/parser"
+	"github.com/JPZ13/dpm/project"
+	"github.com/JPZ13/dpm/utils"
 )
 
 // SetAliases aliases all of the commands

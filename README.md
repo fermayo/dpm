@@ -12,7 +12,7 @@ DPM solves:
 
 Install Docker. Then:
 
-    curl -L "https://github.com/jpz13/dpm/releases/download/0.2.2/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
+    curl -L "https://github.com/JPZ13/dpm/releases/download/0.2.2/dpm-$(uname -s)-$(uname -m)" -o /usr/local/bin/dpm; chmod +x /usr/local/bin/dpm
 
 Make sure /usr/local/bin is ahead of /usr/bin in your $PATH. Most likely, this
 is already the case.
@@ -27,7 +27,7 @@ Add a file called `dpm.yml` to your project root defining the commands you want 
 commands:
   go:
     image: golang:1.7.5
-    context: /go/src/github.com/jpz13/dpm
+    context: /go/src/github.com/JPZ13/dpm
 
   glide:
     image: dockerepo/glide

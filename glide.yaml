@@ -1,4 +1,4 @@
-package: github.com/jpz13/dpm
+package: github.com/JPZ13/dpm
 import:
 - package: github.com/go-yaml/yaml
 - package: github.com/spf13/cobra

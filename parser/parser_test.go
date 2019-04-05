@@ -20,7 +20,7 @@ func TestGetCommands(t *testing.T) {
 	goCommand := Command{
 		Name:    "go",
 		Image:   "golang:1.7.5",
-		Context: "/go/src/github.com/jpz13/dpm",
+		Context: "/go/src/github.com/JPZ13/dpm",
 		Entrypoints: []string{
 			"go",
 		},

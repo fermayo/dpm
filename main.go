@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/jpz13/dpm/cmd"
+	"github.com/JPZ13/dpm/cmd"
 )
 
 func main() {
