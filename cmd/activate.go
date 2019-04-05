@@ -5,8 +5,8 @@ import (
 	"log"
 
 	"github.com/JPZ13/dpm/alias"
+	"github.com/JPZ13/dpm/internal/shell"
 	"github.com/JPZ13/dpm/project"
-	"github.com/JPZ13/dpm/shell"
 	"github.com/spf13/cobra"
 )
 
