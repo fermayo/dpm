@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"path"
 
-	"github.com/JPZ13/dpm/utils"
+	"github.com/JPZ13/dpm/internal/utils"
 )
 
 // ActivateProject makes a config file at

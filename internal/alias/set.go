@@ -8,7 +8,7 @@ import (
 
 	"github.com/JPZ13/dpm/internal/parser"
 	"github.com/JPZ13/dpm/internal/project"
-	"github.com/JPZ13/dpm/utils"
+	"github.com/JPZ13/dpm/internal/utils"
 )
 
 // SetAliases aliases all of the commands

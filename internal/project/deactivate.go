@@ -4,7 +4,7 @@ import (
 	"errors"
 	"path"
 
-	"github.com/JPZ13/dpm/utils"
+	"github.com/JPZ13/dpm/internal/utils"
 )
 
 const (
