@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/JPZ13/dpm/project"
+	"github.com/JPZ13/dpm/internal/project"
 )
 
 // ProjectState controls whether a project is active

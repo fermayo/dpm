@@ -6,8 +6,8 @@ import (
 	"os"
 	"text/tabwriter"
 
+	"github.com/JPZ13/dpm/internal/project"
 	"github.com/JPZ13/dpm/parser"
-	"github.com/JPZ13/dpm/project"
 	"github.com/spf13/cobra"
 )
 
